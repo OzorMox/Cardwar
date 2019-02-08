@@ -29,15 +29,33 @@ class Player extends React.Component {
     const type = this.props.ai ? "AI" : "Player"
 
     var cities = []
+    var attackFromCities = []
+
     for (var i = 0; i < this.state.cities.length; i++) {
       cities.push(<City key={i} cities={this.state.cities[i]} />)
+      attackFromCities.push(<option value={i}>{this.state.cities[i].name}</option>)
     }
+
+    const attackFrom = (
+      <select>
+        {attackFromCities}
+      </select>
+    )
+
+    const attackTo = (
+      <select>
+
+      </select>
+    )
 
     return(
       <div>
         {type} {this.props.id} <button onClick={this.buildCity}>Build City</button>
         <br />
         {cities}
+        <br />
+        Attack from {attackFrom} to {attackTo} <button>Go!</button>
+        <br />
         <br />
       </div>
     )
