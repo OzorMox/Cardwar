@@ -9,28 +9,65 @@ class App extends React.Component {
     super(props)
 
     this.handleSetup = this.handleSetup.bind(this)
+    this.buildCity = this.buildCity.bind(this)
 
     this.state = {
-      players: 0,
-      ai: 0
+      players: []
     }
   }
 
   handleSetup(players, ai) {
+    var playersList = []
+
+    for (var i = 0; i < players; i++) {
+      let newPlayer = {
+        id: i,
+        ai: false,
+        cities: []
+      }
+      playersList.push(newPlayer)
+    }
+
+    for (var j = 0; j < ai; j++) {
+      let newAI = {
+        id: j + 100,
+        ai: true,
+        cities: []
+      }
+      playersList.push(newAI)
+    }
+
     this.setState({
-      players: players,
-      ai: ai
+      players: playersList
     })
+  }
+
+  buildCity(player) {
+    let newCity = {
+      id: 0,
+      name: "London",
+      armies: 0
+    }
+
+    console.log(player)
+
+    let state = {
+      players : {
+        ...this.state.players,
+        [player] : {
+          ...this.state.players[player],
+          cities: newCity
+        }
+      }
+    }
+
+    //this.setState(state)
   }
 
   render() {
     var players = []
-    for (var i = 0; i < this.state.players; i++) {
-      players.push(<Player key={i} id={i} ai={false} />)
-    }
-
-    for (var j = 0; j < this.state.ai; j++) {
-      players.push(<Player key={j + 100} id={j} ai={true} />)
+    for (var i = 0; i < this.state.players.length; i++) {
+      players.push(<Player key={i} id={i} players={this.state.players} buildCity={this.buildCity} />)
     }
 
     return (

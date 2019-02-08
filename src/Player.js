@@ -3,37 +3,15 @@ import React from 'react'
 import City from './City'
 
 class Player extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.buildCity = this.buildCity.bind(this)
-
-    this.state = {
-      cities: []
-    }
-  }
-
-  buildCity(event) {
-    let newCity = {
-      id: 0,
-      name: "London",
-      armies: 0
-    }
-
-    this.setState(prev => ({
-      cities: [...prev.cities, newCity]
-    }))
-  }
-
   render() {
-    const type = this.props.ai ? "AI" : "Player"
+    const type = this.props.players[this.props.id].ai ? "AI" : "Player"
 
     var cities = []
     var attackFromCities = []
 
-    for (var i = 0; i < this.state.cities.length; i++) {
-      cities.push(<City key={i} cities={this.state.cities[i]} />)
-      attackFromCities.push(<option value={i}>{this.state.cities[i].name}</option>)
+    for (var i = 0; i < this.props.players[i].cities.length; i++) {
+      cities.push(<City key={i} cities={this.props.players[i].cities[i]} />)
+      attackFromCities.push(<option value={i}>{this.props.players[i].cities[i].name}</option>)
     }
 
     const attackFrom = (
@@ -50,7 +28,7 @@ class Player extends React.Component {
 
     return(
       <div>
-        {type} {this.props.id} <button onClick={this.buildCity}>Build City</button>
+        {type} {this.props.id} <button onClick={this.props.buildCity(this.props.id)}>Build City</button>
         <br />
         {cities}
         <br />
