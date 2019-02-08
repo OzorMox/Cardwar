@@ -29,7 +29,7 @@ class Player extends React.Component {
     const type = this.props.ai ? "AI" : "Player"
 
     var cities = []
-    for (var i = 0; i < cities.length; i++) {
+    for (var i = 0; i < this.state.cities.length; i++) {
       cities.push(<City key={i} cities={this.state.cities[i]} />)
     }
 
