@@ -14,7 +14,8 @@ class App extends React.Component {
 
     this.state = {
       players: [],
-      cities: []
+      cities: [],
+      turn: 0
     }
   }
 
@@ -60,18 +61,37 @@ class App extends React.Component {
     this.setState(prev => ({
       cities: [...prev.cities, city]
     }))
+
+    this.advanceTurn()
   }
 
   buildArmy(city) {
     let cities = [...this.state.cities]
     cities[city].armies++
     this.setState({cities})
+
+    this.advanceTurn()
+  }
+
+  advanceTurn() {
+    let turn = this.state.turn
+    turn++
+    if (turn >= this.state.players.length) {
+      turn = 0
+    }
+    this.setState({turn})
   }
 
   render() {
     var players = []
     for (var i = 0; i < this.state.players.length; i++) {
-      players.push(<Player key={i} id={i} player={this.state.players[i]} cities={this.state.cities} buildCity={this.buildCity} buildArmy={this.buildArmy} />)
+      players.push(<Player key={i}
+                           id={i}
+                           player={this.state.players[i]}
+                           cities={this.state.cities}
+                           turn={this.state.turn}
+                           buildCity={this.buildCity}
+                           buildArmy={this.buildArmy} />)
     }
 
     return (
