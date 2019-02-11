@@ -4,8 +4,7 @@ import City from './City'
 
 class Player extends React.Component {
   render() {
-    //const type = this.props.player.ai ? "AI" : "Player"
-    const type = "Bob"
+    const type = this.props.player.ai ? "AI" : "Player"
 
     var cities = []
     var attackFromCities = []
