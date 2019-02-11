@@ -8,11 +8,16 @@ class Player extends React.Component {
 
     var cities = []
     var attackFromCities = []
+    var attackToCities = []
 
     for (var i = 0; i < this.props.cities.length; i++) {
       if (this.props.cities[i].owner === this.props.id) {
         cities.push(<City key={i} id={i} city={this.props.cities[i]} buildArmy={this.props.buildArmy} />)
         attackFromCities.push(<option key={i} value={i}>{this.props.cities[i].name}</option>)
+      }
+
+      if (this.props.cities[i].owner !== this.props.id) {
+        attackToCities.push(<option key={i} value={i}>{this.props.cities[i].name}</option>)
       }
     }
 
@@ -24,7 +29,7 @@ class Player extends React.Component {
 
     const attackTo = (
       <select>
-
+        {attackToCities}
       </select>
     )
 
@@ -37,6 +42,7 @@ class Player extends React.Component {
         Attack from {attackFrom} to {attackTo} <button>Go!</button>
         <br />
         <br />
+        <hr />
       </div>
     )
   }

@@ -8,7 +8,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
 
-    this.handleSetup = this.handleSetup.bind(this)
+    this.setup = this.setup.bind(this)
     this.buildCity = this.buildCity.bind(this)
     this.buildArmy = this.buildArmy.bind(this)
 
@@ -18,7 +18,7 @@ class App extends React.Component {
     }
   }
 
-  handleSetup(players, ai) {
+  setup(players, ai) {
     var playersList = []
 
     for (var i = 0; i < players; i++) {
@@ -38,15 +38,22 @@ class App extends React.Component {
     }
 
     this.setState({
+      players: [],
+      cities: []
+    })
+
+    this.setState({
       players: playersList
     })
   }
 
   buildCity(player) {
+    let id = this.state.cities.length
+
     let city = {
-      id: this.state.cities.length,
+      id: id,
       owner: player,
-      name: "London",
+      name: "London " + id,
       armies: 0
     }
 
@@ -69,9 +76,9 @@ class App extends React.Component {
 
     return (
       <div>
-        <Setup handleSetup={this.handleSetup} />
+        <Setup setup={this.setup} />
         <br />
-        <br />
+        <hr />
         {players}
       </div>
     )

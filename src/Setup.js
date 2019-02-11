@@ -28,7 +28,7 @@ class Setup extends React.Component {
         AI <input id="ai" type="text" className="setup" onChange={this.handleAIChange}></input>
         <br />
         <br />
-        <button onClick={() => this.props.handleSetup(this.state.players, this.state.ai)}>Start</button>
+        <button onClick={() => this.props.setup(this.state.players, this.state.ai)}>Start</button>
       </div>
     )
   }
