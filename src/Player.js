@@ -3,8 +3,27 @@ import React from 'react'
 import City from './City'
 
 class Player extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      from: null,
+      to: null
+    }
+
+    this.attackFromChange = this.attackFromChange.bind(this)
+    this.attackToChange = this.attackToChange.bind(this)
+  }
+
   activeTurn() {
     return (this.props.id === this.props.turn)
+  }
+
+  attackFromChange(event) {
+    this.setState({from: event.target.value})
+  }
+
+  attackToChange(event) {
+    this.setState({to: event.target.value})
   }
 
   render() {
@@ -30,13 +49,13 @@ class Player extends React.Component {
     }
 
     const attackFrom = (
-      <select>
+      <select onChange={this.attackFromChange}>
         {attackFromCities}
       </select>
     )
 
     const attackTo = (
-      <select>
+      <select onChange={this.attackToChange}>
         {attackToCities}
       </select>
     )
@@ -47,7 +66,7 @@ class Player extends React.Component {
         <br />
         {cities}
         <br />
-        Attack from {attackFrom} to {attackTo} <button disabled={!this.activeTurn()}>Go!</button>
+        Attack from {attackFrom} to {attackTo} <button onClick={() => {this.props.attack(this.state.from, this.state.to)}} disabled={!this.activeTurn()}>Go!</button>
         <br />
         <br />
         <hr />

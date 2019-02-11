@@ -11,6 +11,7 @@ class App extends React.Component {
     this.setup = this.setup.bind(this)
     this.buildCity = this.buildCity.bind(this)
     this.buildArmy = this.buildArmy.bind(this)
+    this.attack = this.attack.bind(this)
 
     this.state = {
       players: [],
@@ -74,6 +75,20 @@ class App extends React.Component {
     this.advanceTurn()
   }
 
+  attack(from, to) {
+    let cities = [...this.state.cities]
+
+    console.log("from: " + from, ", to: " + to)
+
+    if (Math.round(Math.random()) === 0) {
+      cities[from].armies--
+    } else {
+      cities[to].armies--
+    }
+
+    this.setState({cities})
+  }
+
   advanceTurn() {
     let turn = this.state.turn
     turn++
@@ -92,7 +107,8 @@ class App extends React.Component {
                            cities={this.state.cities}
                            turn={this.state.turn}
                            buildCity={this.buildCity}
-                           buildArmy={this.buildArmy} />)
+                           buildArmy={this.buildArmy}
+                           attack={this.attack} />)
     }
 
     return (
