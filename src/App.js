@@ -12,7 +12,8 @@ class App extends React.Component {
     this.buildCity = this.buildCity.bind(this)
 
     this.state = {
-      players: []
+      players: [],
+      cities: []
     }
   }
 
@@ -22,8 +23,7 @@ class App extends React.Component {
     for (var i = 0; i < players; i++) {
       let newPlayer = {
         id: i,
-        ai: false,
-        cities: []
+        ai: false
       }
       playersList.push(newPlayer)
     }
@@ -31,8 +31,7 @@ class App extends React.Component {
     for (var j = 0; j < ai; j++) {
       let newAI = {
         id: j + 100,
-        ai: true,
-        cities: []
+        ai: true
       }
       playersList.push(newAI)
     }
@@ -45,29 +44,20 @@ class App extends React.Component {
   buildCity(player) {
     let newCity = {
       id: 0,
+      owner: player,
       name: "London",
       armies: 0
     }
 
-    console.log(player)
-
-    let state = {
-      players : {
-        ...this.state.players,
-        [player] : {
-          ...this.state.players[player],
-          cities: newCity
-        }
-      }
-    }
-
-    //this.setState(state)
+    this.setState(prev => ({
+      cities: [...prev.cities, newCity]
+    }))
   }
 
   render() {
     var players = []
     for (var i = 0; i < this.state.players.length; i++) {
-      players.push(<Player key={i} id={i} players={this.state.players} buildCity={this.buildCity} />)
+      players.push(<Player key={i} id={i} player={this.state.players[i]} cities={this.state.cities} buildCity={this.buildCity} />)
     }
 
     return (

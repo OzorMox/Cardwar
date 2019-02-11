@@ -4,14 +4,17 @@ import City from './City'
 
 class Player extends React.Component {
   render() {
-    const type = this.props.players[this.props.id].ai ? "AI" : "Player"
+    //const type = this.props.player.ai ? "AI" : "Player"
+    const type = "Bob"
 
     var cities = []
     var attackFromCities = []
 
-    for (var i = 0; i < this.props.players[i].cities.length; i++) {
-      cities.push(<City key={i} cities={this.props.players[i].cities[i]} />)
-      attackFromCities.push(<option value={i}>{this.props.players[i].cities[i].name}</option>)
+    for (var i = 0; i < this.props.cities.length; i++) {
+      if (this.props.cities[i].owner === this.props.id) {
+        cities.push(<City key={i} city={this.props.cities[i]} />)
+        attackFromCities.push(<option key={i} value={i}>{this.props.cities[i].name}</option>)
+      }
     }
 
     const attackFrom = (
@@ -28,7 +31,7 @@ class Player extends React.Component {
 
     return(
       <div>
-        {type} {this.props.id} <button onClick={this.props.buildCity(this.props.id)}>Build City</button>
+        {type} {this.props.id} <button onClick={() => {this.props.buildCity(this.props.id)}}>Build City</button>
         <br />
         {cities}
         <br />

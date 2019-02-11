@@ -19,7 +19,7 @@ class City extends React.Component {
     return(
       <div>
         <br />
-        {this.props.cities.name}
+        {this.props.city.name}
         <br />
         Armies: {this.state.armies} <button onClick={this.buildArmy}>Build Army</button>
         <br />
