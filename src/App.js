@@ -40,7 +40,8 @@ class App extends React.Component {
 
     this.setState({
       players: [],
-      cities: []
+      cities: [],
+      turn: 0
     })
 
     this.setState({
