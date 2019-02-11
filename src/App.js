@@ -10,6 +10,7 @@ class App extends React.Component {
 
     this.handleSetup = this.handleSetup.bind(this)
     this.buildCity = this.buildCity.bind(this)
+    this.buildArmy = this.buildArmy.bind(this)
 
     this.state = {
       players: [],
@@ -42,22 +43,28 @@ class App extends React.Component {
   }
 
   buildCity(player) {
-    let newCity = {
-      id: 0,
+    let city = {
+      id: this.state.cities.length,
       owner: player,
       name: "London",
       armies: 0
     }
 
     this.setState(prev => ({
-      cities: [...prev.cities, newCity]
+      cities: [...prev.cities, city]
     }))
+  }
+
+  buildArmy(city) {
+    let cities = [...this.state.cities]
+    cities[city].armies++
+    this.setState({cities})
   }
 
   render() {
     var players = []
     for (var i = 0; i < this.state.players.length; i++) {
-      players.push(<Player key={i} id={i} player={this.state.players[i]} cities={this.state.cities} buildCity={this.buildCity} />)
+      players.push(<Player key={i} id={i} player={this.state.players[i]} cities={this.state.cities} buildCity={this.buildCity} buildArmy={this.buildArmy} />)
     }
 
     return (

@@ -12,7 +12,7 @@ class Player extends React.Component {
 
     for (var i = 0; i < this.props.cities.length; i++) {
       if (this.props.cities[i].owner === this.props.id) {
-        cities.push(<City key={i} city={this.props.cities[i]} />)
+        cities.push(<City key={i} id={i} city={this.props.cities[i]} buildArmy={this.props.buildArmy} />)
         attackFromCities.push(<option key={i} value={i}>{this.props.cities[i].name}</option>)
       }
     }
