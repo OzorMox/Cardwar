@@ -51,12 +51,9 @@ class App extends React.Component {
   }
 
   buildCity(player) {
-    let id = this.state.cities.length
-
     let city = {
-      id: id,
       owner: player,
-      name: "London " + id,
+      name: "London " + Math.floor((Math.random() * 100) + 1),
       armies: 0
     }
 
@@ -78,12 +75,25 @@ class App extends React.Component {
   attack(from, to) {
     let cities = [...this.state.cities]
 
-    console.log("from: " + from, ", to: " + to)
+    if (from === -1 || to === -1) {
+      console.log("From or to city not specified")
+      return
+    }
+
+    if (cities[from].armies === 0) {
+      console.log("No armies in city " + from + " to attack with")
+      return
+    }
 
     if (Math.round(Math.random()) === 0) {
       cities[from].armies--
     } else {
-      cities[to].armies--
+      if (cities[to].armies === 0) {
+        //Destroy city if empty
+        cities.splice(to, 1)
+      } else {
+        cities[to].armies--
+      }
     }
 
     this.setState({cities})

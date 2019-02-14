@@ -6,8 +6,8 @@ class Player extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      from: 0,
-      to: 0
+      from: -1,
+      to: -1
     }
 
     this.attackFromChange = this.attackFromChange.bind(this)
@@ -19,32 +19,11 @@ class Player extends React.Component {
   }
 
   attackFromChange(event) {
-    this.setState({from: event.target.value})
+    this.setState({from: parseInt(event.target.value)})
   }
 
   attackToChange(event) {
-    this.setState({to: event.target.value})
-  }
-
-  componentDidUpdate() {
-    //When a render triggers, update the initial values of attack from/to if they have changed
-    for (var i = 0; i < this.props.cities.length; i++) {
-      if (this.props.cities[i].owner === this.props.id) {
-        if (i !== this.state.from) {
-          this.setState({from: i})
-        }
-        break
-      }
-    }
-
-    for (var j = 0; j < this.props.cities.length; j++) {
-      if (this.props.cities[j].owner !== this.props.id) {
-        if (j !== this.state.to) {
-          this.setState({to: j})
-        }
-        break
-      }
-    }
+    this.setState({to: parseInt(event.target.value)})
   }
 
   render() {
@@ -71,12 +50,14 @@ class Player extends React.Component {
 
     const attackFrom = (
       <select onChange={this.attackFromChange}>
+        <option value="-1">--</option>
         {attackFromCities}
       </select>
     )
 
     const attackTo = (
       <select onChange={this.attackToChange}>
+        <option value="-1">--</option>
         {attackToCities}
       </select>
     )
