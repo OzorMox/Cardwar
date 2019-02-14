@@ -6,8 +6,8 @@ class Player extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      from: null,
-      to: null
+      from: 0,
+      to: 0
     }
 
     this.attackFromChange = this.attackFromChange.bind(this)
@@ -24,6 +24,27 @@ class Player extends React.Component {
 
   attackToChange(event) {
     this.setState({to: event.target.value})
+  }
+
+  componentDidUpdate() {
+    //When a render triggers, update the initial values of attack from/to if they have changed
+    for (var i = 0; i < this.props.cities.length; i++) {
+      if (this.props.cities[i].owner === this.props.id) {
+        if (i !== this.state.from) {
+          this.setState({from: i})
+        }
+        break
+      }
+    }
+
+    for (var j = 0; j < this.props.cities.length; j++) {
+      if (this.props.cities[j].owner !== this.props.id) {
+        if (j !== this.state.to) {
+          this.setState({to: j})
+        }
+        break
+      }
+    }
   }
 
   render() {
