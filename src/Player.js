@@ -37,6 +37,7 @@ class Player extends React.Component {
       if (this.props.cities[i].owner === this.props.id) {
         cities.push(<City key={i}
                           id={i}
+                          player={this.props.player}
                           city={this.props.cities[i]}
                           buildArmy={this.props.buildArmy}
                           activeTurn={this.activeTurn()} />)
@@ -62,13 +63,17 @@ class Player extends React.Component {
       </select>
     )
 
+    const buildCity = <button onClick={() => {this.props.buildCity(this.props.id)}} disabled={!this.activeTurn()}>Build City</button>
+
+    const attack = <div>Attack from {attackFrom} to {attackTo} <button onClick={() => {this.props.attack(this.state.from, this.state.to)}} disabled={!this.activeTurn()}>Go!</button></div>
+
     return(
       <div>
-        {type} {this.props.id} <button onClick={() => {this.props.buildCity(this.props.id)}} disabled={!this.activeTurn()}>Build City</button>
+        {type} {this.props.id} {!this.props.player.ai ? buildCity : null}
         <br />
         {cities}
         <br />
-        Attack from {attackFrom} to {attackTo} <button onClick={() => {this.props.attack(this.state.from, this.state.to)}} disabled={!this.activeTurn()}>Go!</button>
+        {!this.props.player.ai ? attack : null}
         <br />
         <br />
         <hr />
