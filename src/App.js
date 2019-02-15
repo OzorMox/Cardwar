@@ -3,6 +3,7 @@ import './App.css'
 
 import Setup from './Setup'
 import Player from './Player'
+import AI from './AI'
 
 class App extends React.Component {
   constructor(props) {
@@ -100,11 +101,20 @@ class App extends React.Component {
   }
 
   advanceTurn() {
-    let turn = this.state.turn
-    turn++
+    let turn = this.state.turn + 1
     if (turn >= this.state.players.length) {
       turn = 0
     }
+
+    if (this.state.players[turn].ai)
+    {
+      var ai = new AI()
+      ai.playAITurn(this.state.players[turn])
+      this.setState({turn}, function() {
+        this.advanceTurn()
+      })
+    }
+
     this.setState({turn})
   }
 
