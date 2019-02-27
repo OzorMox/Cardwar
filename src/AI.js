@@ -1,9 +1,9 @@
 class AI {
-  playAITurn(player) {
+  playAITurn(player, cities, buildCity, buildArmy, attack) {
     //Choose strategy at random:
-    //Expansionist: build lots of cities
-    //Aggressive: choose target and attack them
-    //Defensive: build lots of armies in cities
+    //Expansionist (1): build lots of cities
+    //Aggressive (2): choose target and attack them
+    //Defensive (3): build lots of armies in cities
 
     //Expansionist
     //Build lots of cities
@@ -21,6 +21,26 @@ class AI {
     //Build some cities
     //Build lots of armies in each city
     //Attack a random weak target once a city has lots of armies
+
+    console.log("Playing AI turn: " + player.id)
+
+    var ownedCities = cities.filter(function(c) {
+      return c.owner === player.id
+    })
+
+    if (ownedCities.length === 0) {
+      buildCity(player.id)
+      return
+    } else {
+      for (var i = 0; i < cities.length; i++) {
+        if (cities[i].owner === player.id && cities[i].armies === 0) {
+          buildArmy(i)
+          return
+        }
+      }
+      buildCity(player.id)
+      return
+    }
   }
 }
 

@@ -35,16 +35,11 @@ class App extends React.Component {
     for (var j = 0; j < ai; j++) {
       let newAI = {
         id: j + 100,
-        ai: true
+        ai: true,
+        personality: Math.floor((Math.random() * 3) + 1)
       }
       playersList.push(newAI)
     }
-
-    this.setState({
-      players: [],
-      cities: [],
-      turn: 0
-    })
 
     this.setState({
       players: playersList
@@ -106,23 +101,20 @@ class App extends React.Component {
       turn = 0
     }
 
-    if (this.state.players[turn].ai)
-    {
-      var ai = new AI()
-      ai.playAITurn(this.state.players[turn])
-      this.setState({turn}, function() {
-        this.advanceTurn()
-      })
-    }
-
-    this.setState({turn})
+    this.setState({turn}, function() {
+      if (this.state.players[turn].ai)
+      {
+        var ai = new AI()
+        ai.playAITurn(this.state.players[turn], this.state.cities, this.buildCity, this.buildArmy, this.attack)
+      }
+    })
   }
 
   render() {
     var players = []
     for (var i = 0; i < this.state.players.length; i++) {
       players.push(<Player key={i}
-                           id={i}
+                           id={this.state.players[i].id}
                            player={this.state.players[i]}
                            cities={this.state.cities}
                            turn={this.state.turn}
