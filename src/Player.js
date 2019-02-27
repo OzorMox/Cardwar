@@ -1,4 +1,7 @@
 import React from 'react'
+import Button from '@material-ui/core/Button'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
 
 import City from './City'
 
@@ -41,31 +44,31 @@ class Player extends React.Component {
                           city={this.props.cities[i]}
                           buildArmy={this.props.buildArmy}
                           activeTurn={this.activeTurn()} />)
-        attackFromCities.push(<option key={i} value={i}>{this.props.cities[i].name}</option>)
+        attackFromCities.push(<MenuItem key={i} value={i}>{this.props.cities[i].name}</MenuItem>)
       }
 
       if (this.props.cities[i].owner !== this.props.id) {
-        attackToCities.push(<option key={i} value={i}>{this.props.cities[i].name}</option>)
+        attackToCities.push(<MenuItem key={i} value={i}>{this.props.cities[i].name}</MenuItem>)
       }
     }
 
     const attackFrom = (
-      <select onChange={this.attackFromChange}>
-        <option value="-1">--</option>
+      <Select value={this.state.from} onChange={this.attackFromChange}>
+        <MenuItem value="-1">--</MenuItem>
         {attackFromCities}
-      </select>
+      </Select>
     )
 
     const attackTo = (
-      <select onChange={this.attackToChange}>
-        <option value="-1">--</option>
+      <Select value={this.state.to} onChange={this.attackToChange}>
+        <MenuItem value="-1">--</MenuItem>
         {attackToCities}
-      </select>
+      </Select>
     )
 
-    const buildCity = <button onClick={() => {this.props.buildCity(this.props.id)}} disabled={!this.activeTurn()}>Build City</button>
+    const buildCity = <Button variant="contained" color="primary" onClick={() => {this.props.buildCity(this.props.id)}} disabled={!this.activeTurn()}>Build City</Button>
 
-    const attack = <div>Attack from {attackFrom} to {attackTo} <button onClick={() => {this.props.attack(this.state.from, this.state.to)}} disabled={!this.activeTurn()}>Go!</button></div>
+    const attack = <div>Attack from {attackFrom} to {attackTo} <Button variant="contained" color="primary" onClick={() => {this.props.attack(this.state.from, this.state.to)}} disabled={!this.activeTurn()}>Go!</Button></div>
 
     return(
       <div>

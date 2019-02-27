@@ -1,4 +1,6 @@
 import React from 'react'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
 
 class Setup extends React.Component {
   constructor(props) {
@@ -23,12 +25,12 @@ class Setup extends React.Component {
   render() {
     return(
       <div>
-        Players <input id="players" type="text" className="setup" onChange={this.handlePlayerChange}></input>
+        Players <TextField id="players" type="text" className="setup" onChange={this.handlePlayerChange}></TextField>
         <br />
-        AI <input id="ai" type="text" className="setup" onChange={this.handleAIChange}></input>
+        AI <TextField id="ai" type="text" className="setup" onChange={this.handleAIChange}></TextField>
         <br />
         <br />
-        <button onClick={() => this.props.setup(this.state.players, this.state.ai)}>Start</button>
+        <Button variant="contained" color="primary" onClick={() => this.props.setup(this.state.players, this.state.ai)}>Start</Button>
       </div>
     )
   }

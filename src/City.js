@@ -1,8 +1,9 @@
 import React from 'react'
+import Button from '@material-ui/core/Button'
 
 class City extends React.Component {
   render() {
-    const buildArmy = <button onClick={() => {this.props.buildArmy(this.props.id)}} disabled={!this.props.activeTurn}>Build Army</button>
+    const buildArmy = <Button variant="contained" color="primary" onClick={() => {this.props.buildArmy(this.props.id)}} disabled={!this.props.activeTurn}>Build Army</Button>
 
     return(
       <div>
