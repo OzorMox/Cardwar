@@ -25,9 +25,24 @@ class Setup extends React.Component {
   render() {
     return(
       <div>
-        Players <TextField id="players" type="text" className="setup" onChange={this.handlePlayerChange}></TextField>
-        <br />
-        AI <TextField id="ai" type="text" className="setup" onChange={this.handleAIChange}></TextField>
+        <TextField
+          id="players"
+          label="Players"
+          type="text"
+          className="setup"
+          margin="normal"
+          variant="outlined"
+          onChange={this.handlePlayerChange}>
+        </TextField>
+        <TextField
+          id="ai"
+          label="AI"
+          type="text"
+          className="setup"
+          margin="normal"
+          variant="outlined"
+          onChange={this.handleAIChange}>
+        </TextField>
         <br />
         <br />
         <Button variant="contained" color="primary" onClick={() => this.props.setup(this.state.players, this.state.ai)}>Start</Button>

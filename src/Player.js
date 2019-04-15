@@ -4,6 +4,7 @@ import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 
 import City from './City'
+import { OutlinedInput } from '@material-ui/core';
 
 class Player extends React.Component {
   constructor(props) {
@@ -53,14 +54,22 @@ class Player extends React.Component {
     }
 
     const attackFrom = (
-      <Select value={this.state.from} onChange={this.attackFromChange}>
+      <Select
+        value={this.state.from}
+        onChange={this.attackFromChange}
+        input={<OutlinedInput labelWidth={0} />}
+      >
         <MenuItem value="-1">--</MenuItem>
         {attackFromCities}
       </Select>
     )
 
     const attackTo = (
-      <Select value={this.state.to} onChange={this.attackToChange}>
+      <Select 
+        value={this.state.to}
+        onChange={this.attackToChange}
+        input={<OutlinedInput labelWidth={0} />}
+      >
         <MenuItem value="-1">--</MenuItem>
         {attackToCities}
       </Select>
@@ -71,15 +80,14 @@ class Player extends React.Component {
     const attack = <div>Attack from {attackFrom} to {attackTo} <Button variant="contained" color="primary" onClick={() => {this.props.attack(this.state.from, this.state.to)}} disabled={!this.activeTurn()}>Go!</Button></div>
 
     return(
-      <div>
-        {type} {this.props.id} {!this.props.player.ai ? buildCity : null}
+      <div className="player">
+        <h2>{type} {this.props.id}</h2> {!this.props.player.ai ? buildCity : null}
         <br />
         {cities}
         <br />
         {!this.props.player.ai ? attack : null}
         <br />
         <br />
-        <hr />
       </div>
     )
   }

@@ -124,10 +124,10 @@ class App extends React.Component {
     }
 
     return (
-      <div>
+      <div className="main">
+        <h1>Cardwar</h1>
         <Setup setup={this.setup} />
         <br />
-        <hr />
         {players}
       </div>
     )
